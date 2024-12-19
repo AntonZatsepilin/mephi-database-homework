@@ -25,6 +25,7 @@ func (r *Generator) GenerateAuthors(db *sqlx.DB, count int) {
 			log.Printf("failed to insert author: %v", err)
 		}
 	}
+	log.Printf("Generated %d authors", count)
 }
 
 func (r *Generator) GenerateBooks(db *sqlx.DB, count int) {
@@ -37,19 +38,24 @@ func (r *Generator) GenerateBooks(db *sqlx.DB, count int) {
 			log.Printf("failed to insert book: %v", err)
 		}
 	}
+	log.Printf("Generated %d books", count)
 }
 
 func (r *Generator) GenerateGenres(db *sqlx.DB, count int) {
-	m := map[string]bool{}
+	m := make(map[string]bool)
 	for i := 0; i < count; i++ {
 		name := gofakeit.BookGenre()
 		if _, ok := m[name]; !ok {
-		_, err := db.Exec("INSERT INTO library.genres (g_name) VALUES ($1)", name)
-		if err != nil {
-			log.Printf("failed to insert genre: %v", err)
-		}
-	} else {i--}
+    _, err := db.Exec("INSERT INTO library.genres (g_name) VALUES ($1)", name)
+    if err != nil {
+        log.Printf("failed to insert genre: %v", err)
+    }
+    m[name] = true
+} else {
+    i--
 }
+}
+log.Printf("Generated %d genres", count)
 }
 
 func (r *Generator) GenerateSubscribers(db *sqlx.DB, count int) {
@@ -60,6 +66,7 @@ func (r *Generator) GenerateSubscribers(db *sqlx.DB, count int) {
 			log.Printf("failed to insert subscriber: %v", err)
 		}
 	}
+	log.Printf("Generated %d subscribers", count)
 }
 
 func (r *Generator) GenerateBooksAuthors(db *sqlx.DB, count int) {
@@ -71,6 +78,7 @@ func (r *Generator) GenerateBooksAuthors(db *sqlx.DB, count int) {
 			log.Printf("failed to insert book-author link: %v", err)
 		}
 	}
+	log.Printf("Generated %d book-author links", count)
 }
 
 func (r *Generator) GenerateBooksGenres(db *sqlx.DB, count int) {
@@ -82,6 +90,7 @@ func (r *Generator) GenerateBooksGenres(db *sqlx.DB, count int) {
 			log.Printf("failed to insert book-genre link: %v", err)
 		}
 	}
+	log.Printf("Generated %d book-genre links", count)
 }
 
 func (r *Generator) GenerateSubscriptions(db *sqlx.DB, count int) {
@@ -99,4 +108,5 @@ func (r *Generator) GenerateSubscriptions(db *sqlx.DB, count int) {
 			log.Printf("failed to insert subscription: %v", err)
 		}
 	}
+	log.Printf("Generated %d subscriptions", count)
 }
