@@ -6,6 +6,7 @@ import (
 
 	"github.com/brianvoe/gofakeit/v7"
 	"github.com/jmoiron/sqlx"
+	"github.com/sirupsen/logrus"
 	"golang.org/x/exp/rand"
 )
 
@@ -25,7 +26,7 @@ func (r *Generator) GenerateAuthors(db *sqlx.DB, count int) {
 			log.Printf("failed to insert author: %v", err)
 		}
 	}
-	log.Printf("Generated %d authors", count)
+		logrus.Infof("Generated %d authors", count)
 }
 
 func (r *Generator) GenerateBooks(db *sqlx.DB, count int) {
@@ -38,7 +39,7 @@ func (r *Generator) GenerateBooks(db *sqlx.DB, count int) {
 			log.Printf("failed to insert book: %v", err)
 		}
 	}
-	log.Printf("Generated %d books", count)
+	logrus.Infof("Generated %d books", count)
 }
 
 func (r *Generator) GenerateGenres(db *sqlx.DB, count int) {
@@ -55,7 +56,7 @@ func (r *Generator) GenerateGenres(db *sqlx.DB, count int) {
     i--
 }
 }
-log.Printf("Generated %d genres", count)
+logrus.Infof("Generated %d genres", count)
 }
 
 func (r *Generator) GenerateSubscribers(db *sqlx.DB, count int) {
@@ -66,7 +67,7 @@ func (r *Generator) GenerateSubscribers(db *sqlx.DB, count int) {
 			log.Printf("failed to insert subscriber: %v", err)
 		}
 	}
-	log.Printf("Generated %d subscribers", count)
+	logrus.Infof("Generated %d subscribers", count)
 }
 
 func (r *Generator) GenerateBooksAuthors(db *sqlx.DB, count int) {
@@ -78,7 +79,7 @@ func (r *Generator) GenerateBooksAuthors(db *sqlx.DB, count int) {
 			log.Printf("failed to insert book-author link: %v", err)
 		}
 	}
-	log.Printf("Generated %d book-author links", count)
+	logrus.Infof("Generated %d book-author links", count)
 }
 
 func (r *Generator) GenerateBooksGenres(db *sqlx.DB, count int) {
@@ -90,7 +91,7 @@ func (r *Generator) GenerateBooksGenres(db *sqlx.DB, count int) {
 			log.Printf("failed to insert book-genre link: %v", err)
 		}
 	}
-	log.Printf("Generated %d book-genre links", count)
+	logrus.Infof("Generated %d book-genre links", count)
 }
 
 func (r *Generator) GenerateSubscriptions(db *sqlx.DB, count int) {
@@ -108,5 +109,5 @@ func (r *Generator) GenerateSubscriptions(db *sqlx.DB, count int) {
 			log.Printf("failed to insert subscription: %v", err)
 		}
 	}
-	log.Printf("Generated %d subscriptions", count)
+	logrus.Infof("Generated %d subscriptions", count)
 }
