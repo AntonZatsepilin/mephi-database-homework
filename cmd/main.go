@@ -39,7 +39,13 @@ func main() {
 
 	repo := repository.NewRepository(db)
 
-	repo.Generator.GenerateAuthors(db, 1000)
+	repo.Generator.GenerateAuthors(db, 10000)
+	repo.Generator.GenerateBooks(db, 100000)
+	repo.Generator.GenerateGenres(db, 100)
+	repo.Generator.GenerateSubscribers(db, 1000000)
+	repo.Generator.GenerateBooksAuthors(db, 1000000)
+	repo.Generator.GenerateBooksGenres(db, 1000000)
+	repo.Generator.GenerateSubscriptions(db, 10000000)
 
 
 	srv := new(models.Server)
