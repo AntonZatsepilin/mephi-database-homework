@@ -37,6 +37,11 @@ func main() {
 		logrus.Fatalf("failed to initialize db: %s", err.Error())
 	}
 
+	repo := repository.NewRepository(db)
+
+	repo.Generator.GenerateAuthors(db, 1000)
+
+
 	srv := new(models.Server)
 	go func() {
 		if err := srv.Run(viper.GetString("port")); err != nil {
