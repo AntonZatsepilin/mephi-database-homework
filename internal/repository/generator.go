@@ -48,7 +48,7 @@ func (r *Generator) GenerateGenres(db *sqlx.DB, count int) {
 		if err != nil {
 			log.Printf("failed to insert genre: %v", err)
 		}
-	}
+	} else {i--}
 }
 }
 
