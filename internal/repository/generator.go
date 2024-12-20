@@ -43,18 +43,35 @@ func (r *Generator) GenerateBooks(db *sqlx.DB, count int) {
 }
 
 func (r *Generator) GenerateGenres(db *sqlx.DB, count int) {
-	m := make(map[string]bool)
+	genres := []string{
+		"Adventure", "Autobiography", "Biography", "Classic", "Comedy",
+		"Coming-of-Age", "Crime", "Dark Fantasy", "Dystopian", "Epic",
+		"Erotica", "Fantasy", "Fiction", "Gothic", "Graphic Novel",
+		"Historical Fiction", "Horror", "Humor", "Inspirational", "Literary Fiction",
+		"Magic Realism", "Memoir", "Military Fiction", "Mystery", "Mythology",
+		"Non-fiction", "Paranormal", "Philosophy", "Poetry", "Political Fiction",
+		"Psychological Fiction", "Romance", "Satire", "Science Fiction", "Self-help",
+		"Short Stories", "Spirituality", "Sports Fiction", "Supernatural", "Suspense",
+		"Thriller", "Time Travel", "Tragedy", "Travel", "Urban Fantasy",
+		"War", "Western", "Women's Fiction", "Young Adult", "Children's Fiction",
+		"Action", "Adventure Romance", "Alien Invasion", "Alternate History", "Animal Stories",
+		"Anthology", "Apocalyptic", "Art Books", "Audiobook", "Chick Lit",
+		"Christian Fiction", "Cozy Mystery", "Cyberpunk", "Dark Comedy", "Detective Fiction",
+		"Drama", "Epic Fantasy", "Fairy Tale", "Family Saga", "Feminist Fiction",
+		"Folklore", "Game Lit", "Gothic Romance", "Hard Science Fiction", "High Fantasy",
+		"Historical Mystery", "Historical Romance", "Holocaust Fiction", "Inspirational Romance", "Legal Thriller",
+		"Low Fantasy", "Martial Arts Fiction", "Media Tie-in", "Medical Fiction", "Modern Classic",
+		"Occult", "Outdoors", "Parody", "Political Thriller", "Pop Culture",
+		"Post-Apocalyptic", "Religious Fiction", "Reverse Harem", "Science Non-fiction", "Slice of Life",
+		"Space Opera", "Steampunk", "Survival Fiction", "Technology", "Victorian Fiction",
+		"Virtual Reality", "Zombie Fiction",
+	}
 	for i := 0; i < count; i++ {
-		name := gofakeit.BookGenre()
-		if _, ok := m[name]; !ok {
+		name := genres[i]
     _, err := db.Exec("INSERT INTO library.genres (g_name) VALUES ($1)", name)
     if err != nil {
         log.Printf("failed to insert genre: %v", err)
     }
-    m[name] = true
-} else {
-    i--
-}
 }
 logrus.Infof("Generated %d genres", count)
 }
